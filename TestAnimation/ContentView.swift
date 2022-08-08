@@ -9,29 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var color: Color = .red
+    @State private var isZoomed = false
     
     var body: some View {
-        VStack {
-            Rectangle()
-                .frame(width: 200, height: 100)
-                .foregroundColor(color)
-                .animation(.default, value: color)
-            HStack {
-                Button {
-                    color = .red
-                } label: {
-                    Text("Rouge")
-                        .foregroundColor(.red)
-                }
-                Button {
-                    color = .blue
-                } label: {
-                    Text("Bleu")
-                        .foregroundColor(.blue)
-                }
+        Image("itachi")
+            .resizable()
+            .aspectRatio(contentMode: isZoomed ? .fill : .fit)
+            .ignoresSafeArea()
+            .onTapGesture {
+                isZoomed.toggle()
             }
-        }
+            .animation(.easeOut, value: isZoomed)
     }
 }
 
