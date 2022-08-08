@@ -8,9 +8,30 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var color: Color = .red
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack {
+            Rectangle()
+                .frame(width: 200, height: 100)
+                .foregroundColor(color)
+                .animation(.default, value: color)
+            HStack {
+                Button {
+                    color = .red
+                } label: {
+                    Text("Rouge")
+                        .foregroundColor(.red)
+                }
+                Button {
+                    color = .blue
+                } label: {
+                    Text("Bleu")
+                        .foregroundColor(.blue)
+                }
+            }
+        }
     }
 }
 
