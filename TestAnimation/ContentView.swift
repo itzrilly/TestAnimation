@@ -19,7 +19,10 @@ struct ContentView: View {
             .onTapGesture {
                 isZoomed.toggle()
             }
-            .animation(.easeOut, value: isZoomed)
+            .animation(
+                .easeIn(duration: 1)
+                    .repeatCount(3, autoreverses: true),
+                value: isZoomed)
     }
 }
 
