@@ -9,26 +9,22 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var rotationAngle = Angle(degrees: 0)
+    @State private var rotationAngleValue = Angle.degrees(0)
     
     var body: some View {
-        ZStack {
-            Circle()
-                .stroke(lineWidth: 20)
-                .foregroundColor(.blue.opacity(0.5))
-            Circle()
-                .trim(from: 0, to: 0.3)
-                .stroke(lineWidth: 20)
-                .foregroundColor(.blue)
-                .rotationEffect(rotationAngle)
-                .animation(.easeInOut(duration: 1)
-                            .repeatForever(autoreverses: false),
-                        value: rotationAngle)
-        }
-        .frame(width: 200, height: 200)
-        .onAppear {
-            rotationAngle = Angle(degrees: 360)
-        }
+        Rectangle()
+            .frame(width: 200, height: 100)
+            .overlay{
+                Text("Tap me")
+                    .foregroundColor(.white)
+                    .font(.system(size: 22, weight: .semibold))
+            }
+            .rotation3DEffect(rotationAngleValue, axis: (x: 0, y: 1, z: 0))
+            .onTapGesture {
+                withAnimation {
+                    rotationAngleValue = .degrees(180)
+                }
+            }
     }
 }
 
