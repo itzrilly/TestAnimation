@@ -9,20 +9,31 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var isZoomed = false
+    @State private var animationAmout = 1.0
     
     var body: some View {
-        Image("itachi")
-            .resizable()
-            .aspectRatio(contentMode: isZoomed ? .fill : .fit)
-            .ignoresSafeArea()
-            .onTapGesture {
-                isZoomed.toggle()
-            }
-            .animation(
-                .easeIn(duration: 1)
-                    .repeatCount(3, autoreverses: true),
-                value: isZoomed)
+        Button {
+            //
+        } label: {
+            Text("Tap me")
+                .foregroundColor(.white)
+                .font(.system(size: 25, weight: .semibold))
+        }
+        .padding(50)
+        .background(.red)
+        .clipShape(Circle())
+        .overlay{
+            Circle()
+                .stroke(.red)
+                .scaleEffect(animationAmout)
+                .opacity(2 - animationAmout)
+                .animation(.easeInOut(duration: 1)
+                            .repeatForever(autoreverses: false),
+                        value: animationAmout)
+        }
+        .onAppear {
+            animationAmout = 2
+        }
     }
 }
 
