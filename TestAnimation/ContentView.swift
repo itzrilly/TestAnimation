@@ -9,30 +9,25 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var animationAmout = 1.0
+    @State private var rotationAngle = Angle(degrees: 0)
     
     var body: some View {
-        Button {
-            //
-        } label: {
-            Text("Tap me")
-                .foregroundColor(.white)
-                .font(.system(size: 25, weight: .semibold))
-        }
-        .padding(50)
-        .background(.red)
-        .clipShape(Circle())
-        .overlay{
+        ZStack {
             Circle()
-                .stroke(.red)
-                .scaleEffect(animationAmout)
-                .opacity(2 - animationAmout)
+                .stroke(lineWidth: 20)
+                .foregroundColor(.blue.opacity(0.5))
+            Circle()
+                .trim(from: 0, to: 0.3)
+                .stroke(lineWidth: 20)
+                .foregroundColor(.blue)
+                .rotationEffect(rotationAngle)
                 .animation(.easeInOut(duration: 1)
                             .repeatForever(autoreverses: false),
-                        value: animationAmout)
+                        value: rotationAngle)
         }
+        .frame(width: 200, height: 200)
         .onAppear {
-            animationAmout = 2
+            rotationAngle = Angle(degrees: 360)
         }
     }
 }
