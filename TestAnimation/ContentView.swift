@@ -9,22 +9,21 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var rotationAngleValue = Angle.degrees(0)
+    @State private var isEnabled = false
     
     var body: some View {
-        Rectangle()
-            .frame(width: 200, height: 100)
-            .overlay{
-                Text("Tap me")
-                    .foregroundColor(.white)
-                    .font(.system(size: 22, weight: .semibold))
-            }
-            .rotation3DEffect(rotationAngleValue, axis: (x: 0, y: 1, z: 0))
-            .onTapGesture {
-                withAnimation {
-                    rotationAngleValue = .degrees(180)
-                }
-            }
+        Button {
+            isEnabled.toggle()
+        } label: {
+            Text("Tap me")
+                .foregroundColor(.white)
+                .padding()
+                .background(isEnabled ? Color.blue : Color.gray)
+                .animation(.easeIn(duration: 1), value: isEnabled)
+                .cornerRadius(isEnabled ? 0 : 10)
+                .animation(.easeIn(duration: 2), value: isEnabled)
+        }
+
     }
 }
 
