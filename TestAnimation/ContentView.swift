@@ -9,21 +9,23 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State private var isEnabled = false
-    
-    var body: some View {
-        Button {
-            isEnabled.toggle()
-        } label: {
-            Text("Tap me")
-                .foregroundColor(.white)
-                .padding()
-                .background(isEnabled ? Color.blue : Color.gray)
-                .animation(.easeIn(duration: 1), value: isEnabled)
-                .cornerRadius(isEnabled ? 0 : 10)
-                .animation(.easeIn(duration: 2), value: isEnabled)
-        }
+    @State private var dragAmount = CGSize.zero
+    private let gradient = Gradient(colors: [.purple, .blue])
 
+    var body: some View {
+        LinearGradient(gradient: gradient, startPoint: .topLeading, endPoint: .bottomTrailing)
+            .frame(width: 300, height: 200)
+            .cornerRadius(20)
+            .offset(dragAmount)
+            .gesture(
+                DragGesture()
+                    .onChanged({ value in
+                        dragAmount = value.translation
+                    })
+                    .onEnded({ value in
+                        dragAmount = value.translation
+                    })
+            )
     }
 }
 
