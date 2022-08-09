@@ -17,13 +17,18 @@ struct ContentView: View {
             .frame(width: 300, height: 200)
             .cornerRadius(20)
             .offset(dragAmount)
+            //.animation(.spring(), value: dragAmount)
             .gesture(
                 DragGesture()
                     .onChanged({ value in
-                        dragAmount = value.translation
+                        withAnimation(.spring()){
+                            dragAmount = value.translation
+                        }
                     })
-                    .onEnded({ value in
-                        dragAmount = value.translation
+                    .onEnded({ _ in
+                        withAnimation(.easeOut(duration: 3)){
+                            dragAmount = .zero
+                        }
                     })
             )
     }
